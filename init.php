@@ -91,7 +91,7 @@ final class Acf_Block_Preview_Placeholder
     private function __construct()
     {
         add_action('acf/init', array($this, 'boot'), 1);
-        add_action('enqueue_block_editor_assets', array($this, 'enqueue_editor_styles'));
+        add_action('enqueue_block_assets', array($this, 'enqueue_editor_styles'));
     }
 
     /**
@@ -193,18 +193,26 @@ final class Acf_Block_Preview_Placeholder
     }
 
     /**
-     * Enqueues placeholder styles in the block editor.
+     * Enqueues placeholder styles inside the iframed block editor canvas.
      *
      * @return void
      */
     public function enqueue_editor_styles()
     {
+        if (!is_admin()) {
+            return;
+        }
+
+        $handle = 'acf-block-preview-placeholder';
+
         wp_enqueue_style(
-            'acf-block-preview-placeholder',
+            $handle,
             plugins_url('editor.css', __FILE__),
             array(),
             self::VERSION
         );
+
+        wp_style_add_data($handle, 'path', plugin_dir_path(__FILE__) . 'editor.css');
     }
 
     /**
