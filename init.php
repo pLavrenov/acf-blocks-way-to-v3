@@ -47,7 +47,7 @@ final class Fleeks_Acf_Block_Preview_Placeholder
      *
      * @var string
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.0.1';
 
     /**
      * Singleton instance.
