@@ -101,7 +101,7 @@ final class Acf_Block_Preview_Placeholder
      */
     public function boot()
     {
-        if ($this->booted || !function_exists('acf_register_block_type')) {
+        if ($this->booted || !function_exists('acf_register_block_type') || !function_exists('acf_register_block')) {
             return;
         }
 
