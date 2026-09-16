@@ -5,28 +5,15 @@
  * Version: 1.0.1
  * Author: pLavrenov
  * Slug: acf-blocks-way-to-v3
- * Text Domain: acf-block-preview-placeholder
- * License: GPL v2 or later
+ * Text Domain: acf-blocks-way-to-v3
+ * License: GPL v2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- *
- * ACF Blocks - Way to V3 is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * ACF Blocks - Way to V3 is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this plugin. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
  */
 
 /**
  * Exclude specific ACF blocks from placeholder replacement:
  *
- * add_filter( 'acf_block_preview_placeholder/exclude', function( $exclude ) {
+ * add_filter( 'acf_blocks_way_to_v3/exclude', function( $exclude ) {
  *     $exclude[] = 'acf/example-block';
  *     return $exclude;
  * } );
@@ -40,7 +27,7 @@ if (!defined('ABSPATH')) {
  * Replaces ACF block markup in the Gutenberg editor with a compact placeholder
  * that shows the block title and name.
  */
-final class Acf_Block_Preview_Placeholder
+final class Acf_Blocks_Way_To_V3
 {
 
     /**
@@ -203,7 +190,7 @@ final class Acf_Block_Preview_Placeholder
             return;
         }
 
-        $handle = 'acf-block-preview-placeholder';
+        $handle = 'acf-blocks-way-to-v3';
 
         wp_enqueue_style(
             $handle,
@@ -233,7 +220,7 @@ final class Acf_Block_Preview_Placeholder
             return false;
         }
 
-        $exclude = apply_filters('acf_block_preview_placeholder/exclude', array(), $block);
+        $exclude = apply_filters('acf_blocks_way_to_v3/exclude', array(), $block);
 
         if ($name && is_array($exclude) && in_array($name, $exclude, true)) {
             return false;
@@ -264,11 +251,11 @@ final class Acf_Block_Preview_Placeholder
             $heading .= ($heading ? ' ' : '') . '(' . $slug . ')';
         }
 
-        $html = '<div class="acf-block-preview-placeholder">';
-        $html .= '<div class="acf-block-preview-placeholder__name">' . esc_html($heading) . '</div>';
-        $html .= '<div class="acf-block-preview-placeholder__hint">' . esc_html__(
+        $html = '<div class="acf-blocks-way-to-v3">';
+        $html .= '<div class="acf-blocks-way-to-v3__name">' . esc_html($heading) . '</div>';
+        $html .= '<div class="acf-blocks-way-to-v3__hint">' . esc_html__(
                 'Block fields open in the sidebar or in a modal.',
-                'acf-block-preview-placeholder'
+                'acf-blocks-way-to-v3'
             ) . '</div>';
 
         if (!empty($block['supports']['jsx'])) {
@@ -277,8 +264,8 @@ final class Acf_Block_Preview_Placeholder
 
         $html .= '</div>';
 
-        return apply_filters('acf_block_preview_placeholder/html', $html, $block, $title);
+        return apply_filters('acf_blocks_way_to_v3/html', $html, $block, $title);
     }
 }
 
-Acf_Block_Preview_Placeholder::instance();
+Acf_Blocks_Way_To_V3::instance();

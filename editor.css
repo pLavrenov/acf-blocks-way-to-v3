@@ -1,4 +1,4 @@
-.acf-block-preview-placeholder {
+.acf-blocks-way-to-v3 {
 	box-sizing: border-box;
 	margin: 8px 0;
 	padding: 14px 16px;
@@ -12,17 +12,17 @@
 	min-height: 0;
 }
 
-.acf-block-preview-placeholder__name {
+.acf-blocks-way-to-v3__name {
 	font-weight: 600;
 }
 
-.acf-block-preview-placeholder__hint {
+.acf-blocks-way-to-v3__hint {
 	margin-top: 4px;
 	color: #757575;
 	font-size: 12px;
 }
 
-.acf-block-preview-placeholder .acf-innerblocks-container,
-.acf-block-preview-placeholder .block-editor-inner-blocks {
+.acf-blocks-way-to-v3 .acf-innerblocks-container,
+.acf-blocks-way-to-v3 .block-editor-inner-blocks {
 	margin-top: 12px;
 }
