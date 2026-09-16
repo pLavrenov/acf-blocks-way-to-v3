@@ -5,6 +5,7 @@
  * Version: 1.0.1
  * Author: pLavrenov
  * Slug: acf-blocks-way-to-v3
+ * Text Domain: acf-block-preview-placeholder
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
@@ -25,8 +26,8 @@
 /**
  * Exclude specific ACF blocks from placeholder replacement:
  *
- * add_filter( 'fleeks/acf_block_preview_placeholder', function( $exclude ) {
- *     $exclude[] = 'acf/fleeks-test';
+ * add_filter( 'acf_block_preview_placeholder/exclude', function( $exclude ) {
+ *     $exclude[] = 'acf/example-block';
  *     return $exclude;
  * } );
  */
@@ -39,7 +40,7 @@ if (!defined('ABSPATH')) {
  * Replaces ACF block markup in the Gutenberg editor with a compact placeholder
  * that shows the block title and name.
  */
-final class Fleeks_Acf_Block_Preview_Placeholder
+final class Acf_Block_Preview_Placeholder
 {
 
     /**
@@ -89,19 +90,8 @@ final class Fleeks_Acf_Block_Preview_Placeholder
      */
     private function __construct()
     {
-        add_action('after_setup_theme', array($this, 'register_editor_style'));
         add_action('acf/init', array($this, 'boot'), 1);
         add_action('enqueue_block_editor_assets', array($this, 'enqueue_editor_styles'));
-    }
-
-    /**
-     * Adds the placeholder stylesheet to the classic editor style stack.
-     *
-     * @return void
-     */
-    public function register_editor_style()
-    {
-        add_editor_style('modules/acf-block-preview-placeholder/editor.css');
     }
 
     /**
@@ -210,8 +200,8 @@ final class Fleeks_Acf_Block_Preview_Placeholder
     public function enqueue_editor_styles()
     {
         wp_enqueue_style(
-            'fleeks-acf-block-preview-placeholder',
-            get_theme_file_uri('modules/acf-block-preview-placeholder/editor.css'),
+            'acf-block-preview-placeholder',
+            plugins_url('editor.css', __FILE__),
             array(),
             self::VERSION
         );
@@ -235,7 +225,8 @@ final class Fleeks_Acf_Block_Preview_Placeholder
             return false;
         }
 
-        $exclude = apply_filters('fleeks/acf_block_preview_placeholder', array(), $block);
+        $exclude = apply_filters('acf_block_preview_placeholder/exclude', array(), $block);
+
         if ($name && is_array($exclude) && in_array($name, $exclude, true)) {
             return false;
         }
@@ -265,11 +256,11 @@ final class Fleeks_Acf_Block_Preview_Placeholder
             $heading .= ($heading ? ' ' : '') . '(' . $slug . ')';
         }
 
-        $html = '<div class="fleeks-acf-block-preview">';
-        $html .= '<div class="fleeks-acf-block-preview__name">' . esc_html($heading) . '</div>';
-        $html .= '<div class="fleeks-acf-block-preview__hint">' . esc_html__(
-                'Поля блока открываются в панели или в модальном окне',
-                'fleeks_theme'
+        $html = '<div class="acf-block-preview-placeholder">';
+        $html .= '<div class="acf-block-preview-placeholder__name">' . esc_html($heading) . '</div>';
+        $html .= '<div class="acf-block-preview-placeholder__hint">' . esc_html__(
+                'Block fields open in the sidebar or in a modal.',
+                'acf-block-preview-placeholder'
             ) . '</div>';
 
         if (!empty($block['supports']['jsx'])) {
@@ -278,8 +269,8 @@ final class Fleeks_Acf_Block_Preview_Placeholder
 
         $html .= '</div>';
 
-        return apply_filters('fleeks/acf_block_preview_placeholder_html', $html, $block, $title);
+        return apply_filters('acf_block_preview_placeholder/html', $html, $block, $title);
     }
 }
 
-Fleeks_Acf_Block_Preview_Placeholder::instance();
+Acf_Block_Preview_Placeholder::instance();
