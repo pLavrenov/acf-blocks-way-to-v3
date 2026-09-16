@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Logs and caches
+*.log
+.phpunit.result.cache
+.php-cs-fixer.cache
+.phpcs.cache
+
+# Dependencies and build
+/vendor/
+/node_modules/
+/dist/
+composer.lock
+package-lock.json
+yarn.lock
+
+# Environment
+.env
+.env.*
+!.env.example
